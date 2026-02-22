@@ -1,2 +1,2 @@
-# Modul buat ningkatin Saturasi Layar 2x
-Flash pake **KernelSU Manager** atau **Magisk Manager**.
+# Module for saturation boost (2x)
+**KernelSU Manager** or **Magisk Manager** whatever...
