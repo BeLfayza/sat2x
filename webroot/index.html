@@ -1,37 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saturation Boost</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Arial', sans-serif;
+            background: #121212;
+            color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
             text-align: center;
-            margin-top: 50px;
-            background-color: black;
-            color: white;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #5900ff;
         }
 
         button {
-            padding: 10px 20px;
+            padding: 12px 25px;
             font-size: 16px;
             cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            background: #5900ff;
+            color: #121212;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #9d68ff;
+        }
+
+        .note {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #aaaaaa;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
         }
     </style>
 </head>
 
 <body>
-    <p>Klik tombol untuk re-apply saturasi boost</p>
-    <button onclick="applyBoost()">Apply Boost</button>
+    <div class="container">
+        <h1>Saturation Boost</h1>
+        <p>Status: <span id="status">Waiting...</span></p>
+        <div class="button-container">
+            <button id="applyBtn">Re-Apply Boost</button>
+            <button id="closeBtn">Keluar</button>
+        </div>
+        <p class="note">Klik tombol jika saturasi hilang</p>
+    </div>
 
     <script>
-        function applyBoost() {
+        const applyBtn = document.getElementById('applyBtn');
+        const statusSpan = document.getElementById('status');
+
+        applyBtn.addEventListener('click', () => {
+            statusSpan.textContent = "Applying...";
+
             fetch('apply.sh')
-                .then(res => alert("Saturation reapplied!"))
-                .catch(err => alert("Failed: " + err))
-        }
+                .then(res => {
+                    if (res.ok) return res.text();
+                    throw new Error("Failed to apply");
+                })
+                .then(data => {
+                    statusSpan.textContent = "Boost reapplied!";
+                })
+                .catch(err => {
+                    statusSpan.textContent = "Error: " + err.message;
+                });
+        });
+        closeBtn.addEventListener('click', () => {
+            window.close();
+        });
     </script>
 </body>
 
