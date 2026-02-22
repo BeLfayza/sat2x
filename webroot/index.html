@@ -52,10 +52,6 @@
             font-size: 12px;
             color: #aaaaaa;
         }
-        .button-container {
-            display: flex;
-            flex-direction: column;
-        }
     </style>
 </head>
 
@@ -63,17 +59,12 @@
     <div class="container">
         <h1>Saturation Boost</h1>
         <p>Status: <span id="status">Waiting...</span></p>
-        <div class="button-container">
-            <button id="applyBtn">Re-Apply Boost</button>
-            <button id="closeBtn">Keluar</button>
-        </div>
-        <p class="note">Klik tombol jika saturasi hilang</p>
+        <button id="applyBtn">Re-Apply Boost</button>
+        <p class="note">Click the button if the boost disappears</p>
     </div>
-
     <script>
         const applyBtn = document.getElementById('applyBtn');
         const statusSpan = document.getElementById('status');
-
         applyBtn.addEventListener('click', () => {
             statusSpan.textContent = "Applying...";
 
@@ -88,9 +79,6 @@
                 .catch(err => {
                     statusSpan.textContent = "Error: " + err.message;
                 });
-        });
-        closeBtn.addEventListener('click', () => {
-            window.close();
         });
     </script>
 </body>
